@@ -1,5 +1,7 @@
 name: CI
-on: workflow_dispatch
+
+on:
+  workflow_dispatch
 
 jobs:
   job1:
@@ -13,12 +15,14 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Debug and Run
+      - name: Clean data  
+        working-directory: ./ModelCleaning
         run: |
-          echo "Current Directory Content"
-          ls -R
-          echo "Moving into ModelCleaning"
-          cd ModelCleaning
-          pip install pandas scikit-learn
+          pip install pandas
           python cleandata.py
+
+      - name: Train and test model
+        working-directory: ./ModelCleaning
+        run: |
+          pip install scikit-learn
           python train_test_dataset.py
