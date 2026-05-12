@@ -7,22 +7,24 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4 
-
       - name: Python setup 3.12
         uses: actions/setup-python@v5 
         with:
           python-version: '3.12'
 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Clean data  
-        working-directory: ./ModelCleaning
+        working-directory: ModelCleaning
         run: |
+          pwd
           pip install pandas
           python cleandata.py
 
       - name: Train and test model
-        working-directory: ./ModelCleaning
+        working-directory: ModelCleaning
         run: |
+          pwd
           pip install scikit-learn
           python train_test_dataset.py
