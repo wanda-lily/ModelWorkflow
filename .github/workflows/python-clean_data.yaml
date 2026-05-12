@@ -3,34 +3,30 @@ name: CI
 on:
   workflow_dispatch
 
-
 jobs:
-    job1:
-      runs-on: ubuntu-latest
-      steps:
-      - name: python setup 3.12
-        uses: actions/setup-python@v6
+  job1:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ModelCleaning # Applies to ALL run steps in this job
+        # All commands below run inside this folder
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 
+
+      - name: Python setup 3.12
+        uses: actions/setup-python@v5 
         with:
           python-version: '3.12'
 
-      - name: checkout code
-        uses: actions/checkout@v6
-
-      - name: clean data
+      - name: Clean data  
         run: |
-          pwd
-          ls -a
-          pwd
-          cd ModelCleaning
           pip install pandas
           python cleandata.py
 
-      - name: train and test model
+      - name: Train and test model
         run: |
-          pwd
-          ls -a
-          pwd
-          cd ModelCleaning
-          pip install pandas
-          pip install scikit-learn
+          pip install pandas scikit-learn
           python train_test_dataset.py
