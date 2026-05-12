@@ -6,12 +6,6 @@ on:
 jobs:
   job1:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./ModelCleaning # Applies to ALL run steps in this job
-        # All commands below run inside this folder
-
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 
@@ -22,11 +16,13 @@ jobs:
           python-version: '3.12'
 
       - name: Clean data  
+        working-directory: ./ModelCleaning
         run: |
           pip install pandas
           python cleandata.py
 
       - name: Train and test model
+        working-directory: ./ModelCleaning
         run: |
-          pip install pandas scikit-learn
+          pip install scikit-learn
           python train_test_dataset.py
