@@ -28,4 +28,4 @@ jobs:
       # Upload to bucket
       - name: Upload to GCS
         run: |
-          gsutil cp -r dist/* gs://artefact-bucket/builds/${{ github.run_id }}/
+          gsutil cp -r dist/* gs://artefact-bucket-ex/builds/${{ github.run_id }}/
